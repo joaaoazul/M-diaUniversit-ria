@@ -332,6 +332,7 @@
             <button class="calculate-btn" onclick="calcularMedia()">📊 Calcular Média</button>
             <button class="import-btn" onclick="mostrarImportModal()">📥 Importar</button>
             <button class="export-btn" onclick="exportarDados()">📤 Exportar</button>
+            <button onclick="carregarExemplo()" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">📝 Carregar Exemplo</button>
             <button class="clear-btn" onclick="limparTudo()">🗑️ Limpar</button>
         </div>
         
@@ -699,6 +700,102 @@ Base de Dados;18;3"></textarea>
             
             fecharImportModal();
             calcularMedia();
+        }
+        
+        function carregarExemplo() {
+            // Limpar tudo primeiro
+            document.getElementById('anos-container').innerHTML = '';
+            contadorAnos = 0;
+            contadorDisciplinas = 0;
+            
+            // Dados de exemplo baseados nas imagens fornecidas
+            const exemploData = {
+                '1': {
+                    '1': [
+                        ['História', 15, 5],
+                        ['Epistemologia', 13, 5],
+                        ['Psicologia I', 16, 5],
+                        ['Metodologia', 17, 5],
+                        ['Psicologia II', 15, 5],
+                        ['Biologia', 15, 5]
+                    ],
+                    '2': [
+                        ['Antropologia', 12, 5],
+                        ['Estatística I', 14, 5],
+                        ['Estatística II', 14, 5],
+                        ['Psicologia III', 15, 5],
+                        ['Teorias', 16, 5],
+                        ['Opção I', 16, 5]
+                    ]
+                },
+                '2': {
+                    '1': [
+                        ['Estatística III', 15, 5],
+                        ['Estatística IV', 18, 5],
+                        ['Psicologia IV', 18, 5],
+                        ['Psicologia V', 16, 5],
+                        ['Psicologia VI', 15, 5],
+                        ['Biopsicologia', 17, 5]
+                    ],
+                    '2': [
+                        ['Psicologia VII', 15, 5],
+                        ['Psicologia VIII', 17, 5],
+                        ['Consulta', 15, 5],
+                        ['Psicologia IX', 17, 5],
+                        ['Cognitiva', 17, 5],
+                        ['Opção II', 17, 5]
+                    ]
+                },
+                '3': {
+                    '1': [
+                        ['Psicopatologia', 18, 5],
+                        ['Avaliação', 17, 5],
+                        ['Psicologia Social', 17, 5],
+                        ['Psicologia Clínica', 16, 5],
+                        ['Psicologia Educacional', 18, 5],
+                        ['Neuropsicologia', 17, 5]
+                    ],
+                    '2': [
+                        ['Psicologia do Trabalho', 18, 5],
+                        ['Psicologia Forense', 19, 5],
+                        ['Prática', 18, 5],
+                        ['Introdução', 18, 5],
+                        ['Opção III', 17, 5],
+                        ['Psicologia Comunitária', 18, 5]
+                    ]
+                }
+            };
+            
+            // Criar os 3 anos
+            for (let ano = 1; ano <= 3; ano++) {
+                adicionarAno();
+                
+                // Preencher cada semestre
+                Object.keys(exemploData[ano]).forEach(sem => {
+                    const disciplinas = exemploData[ano][sem];
+                    const tbody = document.getElementById(`disciplinas-ano${ano}-sem${sem}`);
+                    
+                    // Limpar disciplinas existentes
+                    tbody.innerHTML = '';
+                    
+                    // Adicionar as disciplinas do exemplo
+                    disciplinas.forEach(disc => {
+                        contadorDisciplinas++;
+                        const tr = document.createElement('tr');
+                        tr.id = `disc-${contadorDisciplinas}`;
+                        tr.innerHTML = `
+                            <td><input type="text" placeholder="Nome" id="nome-${contadorDisciplinas}" value="${disc[0]}"></td>
+                            <td><input type="number" placeholder="0-20" id="nota-${contadorDisciplinas}" min="0" max="20" step="0.1" value="${disc[1]}"></td>
+                            <td><input type="number" placeholder="ECTS" id="ects-${contadorDisciplinas}" min="0" step="0.5" value="${disc[2]}"></td>
+                            <td><button class="remove-disc-btn" onclick="removerDisciplina(${contadorDisciplinas})">×</button></td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                });
+            }
+            
+            // Calcular automaticamente após carregar
+            setTimeout(calcularMedia, 100);
         }
         
         // Inicializar com um ano
