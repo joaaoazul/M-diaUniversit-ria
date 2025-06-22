@@ -86,8 +86,9 @@
             background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
         }
         
-        .clear-btn {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        .table-container {
+            width: 100%;
+            position: relative;
         }
         
         .year-container {
@@ -304,20 +305,279 @@
         }
         
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
             .container {
-                padding: 20px;
+                padding: 15px;
+                border-radius: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .subtitle {
+                font-size: 0.9em;
+                margin-bottom: 20px;
             }
             
             .semesters-container {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .actions {
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            
+            .actions button:nth-child(3),
+            .actions button:nth-child(4) {
+                grid-column: span 1;
+            }
+            
+            .actions button:nth-child(5),
+            .actions button:nth-child(6) {
+                grid-column: span 1;
             }
             
             button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .year-container {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .year-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .year-title {
+                font-size: 1.5em;
+            }
+            
+            .semester-section {
+                padding: 15px;
+            }
+            
+            .semester-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .semester-title {
+                font-size: 1.2em;
+            }
+            
+            /* Tabela com scroll horizontal */
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin: 0 -15px;
+                padding: 0 15px;
+            }
+            
+            table {
+                min-width: 500px;
+                font-size: 14px;
+            }
+            
+            th {
+                padding: 10px;
+                font-size: 0.85em;
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            
+            td {
+                padding: 8px;
+            }
+            
+            /* Larguras fixas para manter legibilidade */
+            th:nth-child(1), td:nth-child(1) { 
+                width: 200px;
+                min-width: 200px;
+            }
+            
+            th:nth-child(2), td:nth-child(2) { 
+                width: 80px;
+                min-width: 80px;
+            }
+            
+            th:nth-child(3), td:nth-child(3) { 
+                width: 80px;
+                min-width: 80px;
+            }
+            
+            th:nth-child(4), td:nth-child(4) { 
+                width: 60px;
+                min-width: 60px;
+            }
+            
+            input {
+                font-size: 14px;
+                padding: 6px 8px;
+            }
+            
+            input[type="number"] {
+                text-align: center;
+            }
+            
+            .remove-disc-btn {
+                padding: 4px 8px;
+                font-size: 16px;
+                min-width: 30px;
+            }
+            
+            /* Indicador de scroll */
+            .table-container::after {
+                content: '→';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(0,0,0,0.1);
+                padding: 10px;
+                border-radius: 5px 0 0 5px;
+                font-size: 20px;
+                color: #666;
+                pointer-events: none;
+                opacity: 0.7;
+            }
+            
+            .resultado-principal {
+                padding: 30px 20px;
+            }
+            
+            .media-valor {
+                font-size: 3em;
+            }
+            
+            .media-classificacao {
+                font-size: 1.2em;
+            }
+            
+            .estatisticas-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+            
+            .stat-card {
+                padding: 20px 15px;
+            }
+            
+            .stat-value {
+                font-size: 2em;
+            }
+            
+            .stat-label {
+                font-size: 0.8em;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                margin: 10px;
+                max-height: 90vh;
+            }
+            
+            textarea {
+                height: 200px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .subtitle {
+                font-size: 0.8em;
+            }
+            
+            .actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions button {
                 width: 100%;
+                font-size: 13px;
+                padding: 12px;
+            }
+            
+            .year-container {
+                padding: 12px;
+            }
+            
+            .year-title {
+                font-size: 1.3em;
+            }
+            
+            .semester-section {
+                padding: 12px;
+            }
+            
+            .semester-title {
+                font-size: 1.1em;
+            }
+            
+            /* Mensagem de scroll */
+            .scroll-hint {
+                display: block;
+                text-align: center;
+                color: #666;
+                font-size: 0.8em;
+                margin-top: 5px;
+                font-style: italic;
+            }
+            
+            .estatisticas-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .media-valor {
+                font-size: 2.5em;
+            }
+            
+            .stat-value {
+                font-size: 1.8em;
+            }
+        }
+        
+        /* Modo paisagem para móveis */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .container {
+                padding: 10px;
+            }
+            
+            .actions {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .year-header {
+                flex-direction: row;
+            }
+            
+            .semester-header {
+                flex-direction: row;
+            }
+            
+            .estatisticas-grid {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
     </style>
@@ -410,16 +670,17 @@ Base de Dados;18;3"></textarea>
                         <div class="semester-header">
                             <div class="semester-title">${sem}º Semestre</div>
                         </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Disciplina</th>
-                                    <th>Nota</th>
-                                    <th>ECTS</th>
-                                    <th>Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody id="disciplinas-ano${contadorAnos}-sem${sem}">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Disciplina</th>
+                                        <th>Nota</th>
+                                        <th>ECTS</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="disciplinas-ano${contadorAnos}-sem${sem}">
                 `;
                 
                 // Adicionar 5 disciplinas vazias
@@ -438,7 +699,9 @@ Base de Dados;18;3"></textarea>
                 html += `
                             </tbody>
                         </table>
+                        </div>
                         <button onclick="adicionarDisciplina(${contadorAnos}, ${sem})">+ Adicionar Disciplina</button>
+                        <span class="scroll-hint" style="display: none;">← Deslize para ver mais →</span>
                     </div>
                 `;
             }
@@ -738,57 +1001,44 @@ Base de Dados;18;3"></textarea>
                 const anoElement = document.getElementById(`ano-${ano}`);
                 if (!anoElement) continue;
                 
-                let anoTemDisciplinas = false;
-                
-                // Verificar se o ano tem disciplinas
-                for (let sem = 1; sem <= 2; sem++) {
-                    const tbody = document.getElementById(`disciplinas-ano${ano}-sem${sem}`);
-                    if (tbody && tbody.children.length > 0) {
-                        const disciplinas = tbody.querySelectorAll('tr');
-                        for (let disc of disciplinas) {
-                            const nomeInput = disc.querySelector('input[type="text"]');
-                            if (nomeInput && nomeInput.value) {
-                                anoTemDisciplinas = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                
-                if (!anoTemDisciplinas) continue;
-                
                 // Percorrer cada semestre
                 for (let sem = 1; sem <= 2; sem++) {
                     const tbody = document.getElementById(`disciplinas-ano${ano}-sem${sem}`);
                     if (!tbody) continue;
                     
-                    let semTemDisciplinas = false;
-                    let htmlDisciplinas = '';
+                    let disciplinasHTML = '';
+                    let temDisciplinas = false;
                     
-                    const disciplinas = tbody.querySelectorAll('tr');
-                    disciplinas.forEach(tr => {
-                        const nomeInput = tr.querySelector('input[type="text"]');
-                        const notaInput = tr.querySelector('input[type="number"]:nth-of-type(1)');
-                        const ectsInput = tr.querySelector('input[type="number"]:nth-of-type(2)');
-                        
-                        if (nomeInput && nomeInput.value && notaInput && ectsInput) {
-                            semTemDisciplinas = true;
-                            const nota = parseFloat(notaInput.value) || 0;
-                            const estado = nota >= 10 ? 'Aprovado' : 'Reprovado';
-                            const corEstado = nota >= 10 ? '#4caf50' : '#f44336';
+                    // Buscar todas as disciplinas deste semestre
+                    const trs = tbody.querySelectorAll('tr');
+                    trs.forEach(tr => {
+                        const id = tr.id;
+                        if (id && id.startsWith('disc-')) {
+                            const discNum = id.split('-')[1];
+                            const nome = document.getElementById(`nome-${discNum}`);
+                            const nota = document.getElementById(`nota-${discNum}`);
+                            const ects = document.getElementById(`ects-${discNum}`);
                             
-                            htmlDisciplinas += `
-                                <tr>
-                                    <td>${nomeInput.value}</td>
-                                    <td style="font-weight: 600; color: ${nota >= 16 ? '#4caf50' : '#333'};">${notaInput.value || '-'}</td>
-                                    <td>${ectsInput.value || '-'}</td>
-                                    <td style="color: ${corEstado}; font-weight: 500;">${estado}</td>
-                                </tr>
-                            `;
+                            if (nome && nota && ects && nome.value) {
+                                temDisciplinas = true;
+                                const notaVal = parseFloat(nota.value) || 0;
+                                const estado = notaVal >= 10 ? 'Aprovado' : 'Reprovado';
+                                const corEstado = notaVal >= 10 ? '#4caf50' : '#f44336';
+                                const corNota = notaVal >= 16 ? '#4caf50' : '#333';
+                                
+                                disciplinasHTML += `
+                                    <tr>
+                                        <td>${nome.value}</td>
+                                        <td style="font-weight: 600; color: ${corNota};">${nota.value || '-'}</td>
+                                        <td>${ects.value || '-'}</td>
+                                        <td style="color: ${corEstado}; font-weight: 500;">${estado}</td>
+                                    </tr>
+                                `;
+                            }
                         }
                     });
                     
-                    if (semTemDisciplinas) {
+                    if (temDisciplinas) {
                         win.document.write(`
                             <h3>${ano}º Ano - ${sem}º Semestre</h3>
                             <table>
@@ -801,7 +1051,7 @@ Base de Dados;18;3"></textarea>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${htmlDisciplinas}
+                                    ${disciplinasHTML}
                                 </tbody>
                             </table>
                         `);
