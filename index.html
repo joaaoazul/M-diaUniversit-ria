@@ -850,145 +850,232 @@ Base de Dados;18;3"></textarea>
         function exportarPDF() {
             const win = window.open('', '_blank');
             win.document.write(`
+                <!DOCTYPE html>
                 <html>
                 <head>
                     <title>Relatório de Média Universitária</title>
                     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
                     <style>
+                        * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                        }
+                        
                         body { 
                             font-family: 'Outfit', sans-serif; 
-                            padding: 40px;
+                            padding: 30px;
                             color: #333;
                             line-height: 1.6;
+                            background: #fff;
                         }
+                        
                         .header {
                             text-align: center;
-                            margin-bottom: 40px;
+                            margin-bottom: 30px;
                             padding-bottom: 20px;
                             border-bottom: 3px solid #1e3c72;
                         }
+                        
                         h1 { 
                             color: #1e3c72; 
-                            font-size: 2.5em;
+                            font-size: 2.2em;
                             margin-bottom: 10px;
+                            font-weight: 700;
                         }
+                        
                         .data {
                             color: #666;
-                            font-size: 1.1em;
+                            font-size: 1em;
                         }
+                        
                         .resumo { 
                             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                             color: white;
-                            padding: 30px; 
-                            border-radius: 15px; 
-                            margin: 30px 0;
+                            padding: 25px; 
+                            border-radius: 12px; 
+                            margin: 25px 0;
                             text-align: center;
-                            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
                         }
-                        .media { 
-                            font-size: 60px; 
-                            font-weight: 700; 
-                            margin: 20px 0;
-                        }
-                        .classificacao {
+                        
+                        .resumo h2 {
+                            color: white !important;
+                            border: none !important;
+                            margin-bottom: 15px !important;
                             font-size: 1.5em;
+                        }
+                        
+                        .media { 
+                            font-size: 3.5em; 
+                            font-weight: 700; 
+                            margin: 15px 0;
+                            line-height: 1;
+                        }
+                        
+                        .classificacao {
+                            font-size: 1.3em;
                             margin-bottom: 10px;
                             opacity: 0.95;
                         }
+                        
                         .stats-row {
                             display: flex;
                             justify-content: space-around;
-                            margin-top: 30px;
+                            margin-top: 25px;
+                            padding-top: 20px;
+                            border-top: 1px solid rgba(255,255,255,0.3);
                         }
+                        
                         .stat-box {
                             text-align: center;
+                            flex: 1;
                         }
+                        
                         .stat-value {
-                            font-size: 2em;
+                            font-size: 1.8em;
                             font-weight: 600;
+                            display: block;
                         }
+                        
                         .stat-label {
-                            font-size: 0.9em;
+                            font-size: 0.85em;
                             opacity: 0.9;
+                            display: block;
+                            margin-top: 5px;
                         }
+                        
                         h2 {
                             color: #1e3c72;
-                            font-size: 1.8em;
-                            margin: 40px 0 20px;
-                            padding-bottom: 10px;
+                            font-size: 1.6em;
+                            margin: 35px 0 20px;
+                            padding-bottom: 8px;
                             border-bottom: 2px solid #e0e0e0;
+                            font-weight: 600;
                         }
+                        
                         h3 {
                             color: #34495e;
-                            font-size: 1.3em;
-                            margin: 25px 0 15px;
+                            font-size: 1.2em;
+                            margin: 20px 0 12px;
                             background: #f5f5f5;
-                            padding: 10px 15px;
-                            border-radius: 8px;
+                            padding: 8px 15px;
+                            border-radius: 6px;
+                            font-weight: 600;
                         }
+                        
                         table { 
                             width: 100%; 
                             border-collapse: collapse; 
-                            margin: 20px 0;
-                            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                            margin: 0 0 20px 0;
+                            box-shadow: 0 1px 8px rgba(0,0,0,0.08);
+                            background: white;
                         }
+                        
                         th { 
                             background: #34495e; 
                             color: white; 
-                            padding: 12px;
+                            padding: 10px 12px;
                             text-align: left;
                             font-weight: 500;
+                            font-size: 0.9em;
                         }
+                        
                         td { 
-                            padding: 10px 12px; 
-                            border-bottom: 1px solid #e0e0e0;
+                            padding: 8px 12px; 
+                            border-bottom: 1px solid #e8e8e8;
+                            font-size: 0.95em;
                         }
+                        
                         tr:nth-child(even) {
-                            background: #f9f9f9;
+                            background: #fafafa;
                         }
-                        tr:hover {
-                            background: #f0f0f0;
+                        
+                        tr:last-child td {
+                            border-bottom: none;
                         }
+                        
+                        .nota-alta {
+                            color: #27ae60;
+                            font-weight: 600;
+                        }
+                        
+                        .nota-normal {
+                            color: #333;
+                            font-weight: 500;
+                        }
+                        
+                        .estado-aprovado {
+                            color: #27ae60;
+                            font-weight: 500;
+                        }
+                        
+                        .estado-reprovado {
+                            color: #e74c3c;
+                            font-weight: 500;
+                        }
+                        
                         .footer {
-                            margin-top: 50px;
+                            margin-top: 40px;
                             padding-top: 20px;
                             border-top: 2px solid #e0e0e0;
                             text-align: center;
                             color: #666;
-                            font-size: 0.9em;
+                            font-size: 0.85em;
                         }
+                        
+                        @page {
+                            margin: 1.5cm;
+                            size: A4;
+                        }
+                        
                         @media print {
-                            body { margin: 0; padding: 20px; }
-                            .resumo { break-inside: avoid; }
-                            h3 { break-after: avoid; }
-                            table { break-inside: avoid; }
+                            body { 
+                                margin: 0; 
+                                padding: 15px;
+                            }
+                            .resumo { 
+                                break-inside: avoid;
+                                -webkit-print-color-adjust: exact;
+                                print-color-adjust: exact;
+                            }
+                            h3 { 
+                                break-after: avoid;
+                            }
+                            table { 
+                                break-inside: avoid;
+                            }
+                            .header, .resumo, h2, h3 {
+                                -webkit-print-color-adjust: exact;
+                                print-color-adjust: exact;
+                            }
                         }
                     </style>
                 </head>
                 <body>
                     <div class="header">
                         <h1>Relatório de Média Universitária</h1>
-                        <p class="data">Gerado em ${new Date().toLocaleDateString('pt-PT')}</p>
+                        <p class="data">Gerado em ${new Date().toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                     </div>
                     
                     <div class="resumo">
-                        <h2 style="color: white; border: none; margin-bottom: 10px;">Resumo Geral</h2>
-                        <p class="media">${document.getElementById('media-final').textContent}</p>
-                        <p class="classificacao">${document.getElementById('classificacao').textContent}</p>
-                        <p>Média Ponderada por ECTS</p>
+                        <h2>Resumo Geral</h2>
+                        <div class="media">${document.getElementById('media-final').textContent}</div>
+                        <div class="classificacao">${document.getElementById('classificacao').textContent}</div>
+                        <p style="margin: 0;">Média Ponderada por ECTS</p>
                         
                         <div class="stats-row">
                             <div class="stat-box">
-                                <div class="stat-value">${document.getElementById('total-ects').textContent}</div>
-                                <div class="stat-label">Total ECTS</div>
+                                <span class="stat-value">${document.getElementById('total-ects').textContent}</span>
+                                <span class="stat-label">Total ECTS</span>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-value">${document.getElementById('total-disciplinas').textContent}</div>
-                                <div class="stat-label">Disciplinas</div>
+                                <span class="stat-value">${document.getElementById('total-disciplinas').textContent}</span>
+                                <span class="stat-label">Disciplinas</span>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-value">${document.getElementById('media-simples').textContent}</div>
-                                <div class="stat-label">Média Simples</div>
+                                <span class="stat-value">${document.getElementById('media-simples').textContent}</span>
+                                <span class="stat-label">Média Simples</span>
                             </div>
                         </div>
                     </div>
@@ -1023,15 +1110,15 @@ Base de Dados;18;3"></textarea>
                                 temDisciplinas = true;
                                 const notaVal = parseFloat(nota.value) || 0;
                                 const estado = notaVal >= 10 ? 'Aprovado' : 'Reprovado';
-                                const corEstado = notaVal >= 10 ? '#4caf50' : '#f44336';
-                                const corNota = notaVal >= 16 ? '#4caf50' : '#333';
+                                const classeEstado = notaVal >= 10 ? 'estado-aprovado' : 'estado-reprovado';
+                                const classeNota = notaVal >= 16 ? 'nota-alta' : 'nota-normal';
                                 
                                 disciplinasHTML += `
                                     <tr>
                                         <td>${nome.value}</td>
-                                        <td style="font-weight: 600; color: ${corNota};">${nota.value || '-'}</td>
-                                        <td>${ects.value || '-'}</td>
-                                        <td style="color: ${corEstado}; font-weight: 500;">${estado}</td>
+                                        <td class="${classeNota}" style="text-align: center;">${nota.value || '-'}</td>
+                                        <td style="text-align: center;">${ects.value || '-'}</td>
+                                        <td class="${classeEstado}" style="text-align: center;">${estado}</td>
                                     </tr>
                                 `;
                             }
@@ -1045,9 +1132,9 @@ Base de Dados;18;3"></textarea>
                                 <thead>
                                     <tr>
                                         <th style="width: 50%;">Disciplina</th>
-                                        <th style="width: 20%;">Nota</th>
-                                        <th style="width: 15%;">ECTS</th>
-                                        <th style="width: 15%;">Estado</th>
+                                        <th style="width: 20%; text-align: center;">Nota</th>
+                                        <th style="width: 15%; text-align: center;">ECTS</th>
+                                        <th style="width: 15%; text-align: center;">Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1061,8 +1148,8 @@ Base de Dados;18;3"></textarea>
             
             win.document.write(`
                     <div class="footer">
-                        <p>Documento gerado automaticamente pela Calculadora de Média Universitária</p>
-                        <p>© ${new Date().getFullYear()} - Todos os direitos reservados</p>
+                        <p><strong>Calculadora de Média Universitária</strong></p>
+                        <p>Documento gerado automaticamente • ${new Date().getFullYear()}</p>
                     </div>
                 </body>
                 </html>
